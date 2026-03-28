@@ -1,0 +1,78 @@
+@model FlightBookingCore.Models.ChuyenBay // Khai báo kiểu dữ liệu Model nhận được
+
+@{
+    ViewData["Title"] = "Chỉnh sửa Chuyến bay - Admin";
+    Layout = "_LayoutAdmin"; // Giả định bạn đã tạo file Layout riêng cho Admin
+}
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white text-center py-3">
+                    <h3 class="card-title text-uppercase fw-bold m-0">
+                        <i class="fas fa-edit"></i> Chỉnh sửa Chuyến bay
+                    </h3>
+                </div>
+                <div class="card-body p-4">
+                    <form asp-action="Edit" method="post"> // Form gửi dữ liệu POST đến action Edit
+                        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div> // Hiển thị lỗi tổng thể (nếu có)
+                        <input type="hidden" asp-for="MaChuyenBay" /> // Khóa chính MaChuyenBay (ẩn)
+
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label asp-for="DiemDi" class="form-label fw-bold"></label> // Tag Helper asp-for
+                                <input asp-for="DiemDi" class="form-control" placeholder="Ví dụ: Hà Nội" />
+                                <span asp-validation-for="DiemDi" class="text-danger"></span> // Hiển thị lỗi nhập liệu cho DiemDi
+                            </div>
+                            <div class="col-md-6">
+                                <label asp-for="DiemDen" class="form-label fw-bold"></label>
+                                <input asp-for="DiemDen" class="form-control" placeholder="Ví dụ: Hồ Chí Minh" />
+                                <span asp-validation-for="DiemDen" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label asp-for="NgayGioKhoiHanh" class="form-label fw-bold"></label>
+                                <input asp-for="NgayGioKhoiHanh" class="form-control" type="datetime-local" /> // Sử dụng type="datetime-local"
+                                <span asp-validation-for="NgayGioKhoiHanh" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-6">
+                                <label asp-for="GiaVe" class="form-label fw-bold"></label>
+                                <div class="input-group">
+                                    <input asp-for="GiaVe" class="form-control text-end" placeholder="Ví dụ: 1500000" />
+                                    <span class="input-group-text">VNĐ</span>
+                                }
+                                <span asp-validation-for="GiaVe" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label asp-for="SoGheTrong" class="form-label fw-bold"></label>
+                            <input asp-for="SoGheTrong" class="form-control" type="number" placeholder="Ví dụ: 150" />
+                            <span asp-validation-for="SoGheTrong" class="text-danger"></span>
+                        </div>
+
+                        <hr class="my-4">
+
+                        <div class="d-flex justify-content-between">
+                            <a asp-action="Index" class="btn btn-outline-secondary btn-lg">
+                                <i class="fas fa-arrow-left"></i> Quay lại danh sách
+                            </a>
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                <i class="fas fa-check-circle"></i> Xác nhận chỉnh sửa
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script src="https://kit.fontawesome.com/your-font-awesome-kit.js" crossorigin="anonymous"></script> 
+}

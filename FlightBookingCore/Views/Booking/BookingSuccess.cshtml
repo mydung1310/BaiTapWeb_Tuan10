@@ -1,0 +1,70 @@
+@model FlightBookingCore.Models.DatVe // Khai báo kiểu dữ liệu Model nhận được
+
+@{
+    ViewData["Title"] = "Đặt vé thành công";
+}
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-8 offset-md-2 text-center">
+            <div class="display-1 text-success mb-4">
+                <i class="fas fa-check-circle"></i> // Icon tích xanh thành công
+            </div>
+            <h1 class="display-4 text-success fw-bold">Chúc mừng!</h1>
+            <p class="lead text-muted">Bạn đã đặt vé máy bay thành công.</p>
+            <hr class="my-4">
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-light text-center">
+                    <h4 class="card-title text-uppercase text-muted">Tóm tắt đơn hàng</h4>
+                </div>
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <span class="text-muted">Mã đặt vé:</span>
+                        <span class="fw-bold text-primary display-6">#@Model.MaDatVe</span> // Hiển thị mã đặt vé
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <span class="text-muted">Chuyến bay:</span>
+                        <span class="fw-bold">@Model.ChuyenBay.DiemDi - @Model.ChuyenBay.DiemDen</span> // Hiển thị chặng bay
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <span class="text-muted">Ngày khởi hành:</span>
+                        <span class="fw-bold">@Model.ChuyenBay.NgayGioKhoiHanh.ToString("dd/MM/yyyy HH:mm")</span>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <span class="text-muted">Họ tên khách hàng:</span>
+                        <span class="fw-bold">@Model.HoTenKhachHang</span>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <span class="text-muted">Số lượng vé:</span>
+                        <span class="fw-bold">@Model.SoLuongVe</span>
+                    </div>
+                    <hr>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span class="text-muted display-6">Tổng tiền:</span>
+                        <h2 class="text-danger fw-bold display-5">@Model.TongTien.ToString("N0") VNĐ</h2> // Hiển thị tổng tiền định dạng tiền tệ
+                    </div>
+                </div>
+            </div>
+
+            <div class="alert alert-info text-center" role="alert">
+                <h4 class="alert-heading">Hướng dẫn thanh toán</h4>
+                <p>Vui lòng chuyển khoản tổng số tiền trên vào tài khoản ngân hàng sau với nội dung chuyển khoản là mã đặt vé của bạn (ví dụ: `DATVE @Model.MaDatVe`).</p>
+                <hr>
+                <p class="mb-0 fw-bold">Ngân hàng ABC - Chi nhánh TP.HCM</p>
+                <p class="mb-0 fw-bold">Số tài khoản: 123456789</p>
+                <p class="mb-0 fw-bold">Chủ tài khoản: CÔNG TY CỔ PHẦN FLIGHTBOOKING</p>
+            </div>
+
+            <div class="text-center mt-4 mb-5">
+                <a asp-action="Index" asp-controller="Home" class="btn btn-primary btn-lg">
+                    <i class="fas fa-home"></i> Quay lại trang chủ
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,71 @@
+@model IEnumerable<FlightBookingCore.Models.ChuyenBay> // Khai báo kiểu dữ liệu Model nhận được
+
+@{
+    ViewData["Title"] = "Kết quả tìm kiếm chuyến bay";
+}
+
+<div class="container mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="text-primary">Kết quả tìm kiếm</h2>
+        <a asp-action="Index" class="btn btn-outline-secondary">
+            <i class="fas fa-arrow-left"></i> Tìm kiếm lại
+        </a>
+    </div>
+
+    @if (!Model.Any()) // Kiểm tra nếu không tìm thấy chuyến bay nào
+    {
+        <div class="alert alert-warning text-center" role="alert">
+            <h4 class="alert-heading">Rất tiếc!</h4>
+            <p>Không tìm thấy chuyến bay nào phù hợp với yêu cầu của bạn.</p>
+            <hr>
+            <p class="mb-0">Vui lòng thử lại với điểm đi, điểm đến hoặc ngày khởi hành khác.</p>
+        </div>
+    }
+    else
+    {
+        <div class="row row-cols-1 row-cols-md-2 g-4"> // Sử dụng Grid của Bootstrap để tạo lưới thẻ
+            @foreach (var chuyenBay in Model) // Duyệt qua từng chuyến bay trong danh sách
+            {
+                <div class="col">
+                    <div class="card h-100 shadow-sm"> // Thẻ chuyến bay với bóng đổ nhẹ
+                        <div class="card-header bg-light d-flex justify-content-between align-items-center">
+                            <span class="fw-bold text-uppercase text-muted">Mã CB: @chuyenBay.MaChuyenBay</span>
+                            <span class="badge bg-success">Còn @chuyenBay.SoGheTrong ghế</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="row align-items-center text-center">
+                                <div class="col-5">
+                                    <h4 class="card-title text-primary">@chuyenBay.DiemDi</h4> // Điểm đi
+                                    <p class="card-text text-muted">@chuyenBay.NgayGioKhoiHanh.ToString("HH:mm")</p> // Giờ đi
+                                </div>
+                                <div class="col-2">
+                                    <i class="fas fa-plane fa-2x text-secondary"></i> // Icon máy bay
+                                </div>
+                                <div class="col-5">
+                                    <h4 class="card-title text-primary">@chuyenBay.DiemDen</h4> // Điểm đến
+                                    <p class="card-text text-muted">@chuyenBay.NgayGioKhoiHanh.AddHours(2).ToString("HH:mm")</p> // Giờ đến (giả định bay 2 tiếng)
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <p class="card-text text-muted">
+                                    <i class="fas fa-calendar-alt"></i> Ngày: @chuyenBay.NgayGioKhoiHanh.ToString("dd/MM/yyyy")
+                                </p>
+                                <h3 class="text-danger fw-bold">@chuyenBay.GiaVe.ToString("N0") VNĐ</h3> // Giá vé định dạng tiền tệ
+                            </div>
+                        </div>
+                        <div class="card-footer bg-white border-top-0 text-center">
+                            <a asp-action="Book" asp-controller="Booking" asp-route-id="@chuyenBay.MaChuyenBay" class="btn btn-primary btn-lg w-100">
+                                <i class="fas fa-ticket-alt"></i> Đặt vé ngay
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <script src="https://kit.fontawesome.com/your-font-awesome-kit.js" crossorigin="anonymous"></script> 
+}
